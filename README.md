@@ -18,3 +18,80 @@ The objective of the report is to analyze and present comprehensive insights int
 10. Create Slicers for Date, City, Product, and Channel: Enable users to interact with the data by providing slicers for selecting specific dates, cities, products, and channels, allowing for dynamic filtering and personalized analysis.
 
 # Steps to follow
+
+1) Gather Data
+Collect the necessary data for your project. This could include data from various sources such as databases, spreadsheets, or web services. Ensure the data is accurate and relevant to your objective. Download the Download section at the end of the page.
+
+2) Power Querry – Data Extract, Transform & Load
+Power Query Editor in Power BI is a powerful tool for data cleaning and transformation. We will use it Clean and transform the data to make it suitable for analysis. This may involve removing duplicates, handling missing values, merging datasets, or creating calculated columns.
+
+3) Create a Date Table
+To work with Data Analysis Expressions (DAX) time intelligence functions, there’s a prerequisite model requirement: You must have at least one date table in your model.
+
+## Code for Creating Date Table in Power BI
+DAX DateTable = 
+ADDCOLUMNS (
+    //CALENDAR(DATE(2020,1,1), DATE(2024,12,31)),
+    CALENDARAUTO(),
+    "Year", YEAR([Date]),
+    "Quarter", "Q" & FORMAT(CEILING(MONTH([Date])/3, 1), "#"),
+    "Quarter No", CEILING(MONTH([Date])/3, 1),
+    "Month No", MONTH([Date]),
+    "Month Name", FORMAT([Date], "MMMM"),
+    "Month Short Name", FORMAT([Date], "MMM"),
+    "Month Short Name Plus Year", FORMAT([Date], "MMM,yy"),
+    "DateSort", FORMAT([Date], "yyyyMMdd"),
+    "Day Name", FORMAT([Date], "dddd"),
+    "Details", FORMAT([Date], "dd-MMM-yyyy"),
+    "Day Number", DAY ( [Date] )
+)
+Note: Turn off Auto Date/Time for new files in Power BI Options Setting, as this will help to improve performance of your report.
+
+4) Create Data Model in Power BI Desktop
+Design and create a data model that represents the relationships between different tables in your data. Establish proper relationships, define keys, and establish hierarchies if needed. This step is crucial for accurate analysis and visualization
+
+5) Develop Reports in Power BI Desktop
+Use the Power BI Desktop application to create reports based on your data model. Add visualizations such as charts, tables, and maps to represent the data effectively. Apply filters, slicers, and drill-through functionalities to allow users to interact with the data.
+
+Create Report Background in PowerPoint
+Create Slicers – Date, City, Product, and Channel
+Create Dax measures
+## Create Visuals:
+1) Sales By Product and Comparing it with last year’s Sales.
+2) Sales By Month and Comparing it with last year’s Sales.
+3) Sales of top 5 Cities
+4) Compare Profit by channel with Previous year’s Profit
+5) Sales By Customer and Comparing it with last year’s Sales
+6) Create Cards for Sales, Profit, Profit Margin & Product Sold
+6) Implementing DAX Calculations
+
+We will use Data Analysis Expressions (DAX) to create calculated columns, measures, and calculated tables to perform complex calculations and aggregations. DAX is a powerful formula language that allows you to manipulate data within Power BI.
+
+//Measures Total Sales
+Sales = SUM(Sales_Data[Sales])
+
+//Measures Previous Year Toal Sales
+Sales PY = CALCULATE([Sales], SAMEPERIODLASTYEAR(DateTable[Date]))
+
+//Diffrence Between Current Year Sales & Previous Year Sales
+Sales vs PY = [Sales] - [Sales PY]
+
+
+//Percentage Increase or Decrease in sales year on year (YOY%)
+Sales vs py % = DIVIDE([Sales vs PY],[Sales],0)
+>> Products Sold = SUM(Sales_Data[Order Quantity])
+>> Profit = SUM(Sales_Data[Profit]) 
+>> Profit LY = CALCULATE([Profit], SAMEPERIODLASTYEAR(DateTable[Date]))
+>> Profit Vs LY = [Profit]- [Profit LY]
+>> Profit vs LY % = [Profit Vs LY]/[Profit]
+>> Profit Margin = DIVIDE([Profit],[Sales],0)
+>> Total Cost = SUM(Sales_Data[Total Cost]) 
+
+## Conclusion of Power BI Sales Dashboard Project
+Conclusion for the year 2019:
+
+Sales decreased by more than 10%
+There is a drop in sales of all the top 7 Products
+4 Customers are leading to a drop in sales
+The profit margin in the Export channel is higher
+Similarly, we can derive other insights from the Report
