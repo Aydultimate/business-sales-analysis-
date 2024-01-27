@@ -28,7 +28,7 @@ Power Query Editor in Power BI is a powerful tool for data cleaning and transfor
 3) Create a Date Table
 To work with Data Analysis Expressions (DAX) time intelligence functions, there’s a prerequisite model requirement: You must have at least one date table in your model.
 
-## Code for Creating Date Table in Power BI
+### Code for Creating Date Table in Power BI
 DAX DateTable = 
 ADDCOLUMNS (
     //CALENDAR(DATE(2020,1,1), DATE(2024,12,31)),
@@ -56,7 +56,8 @@ Use the Power BI Desktop application to create reports based on your data model.
 Create Report Background in PowerPoint
 Create Slicers – Date, City, Product, and Channel
 Create Dax measures
-## Create Visuals:
+
+### Create Visuals:
 1) Sales By Product and Comparing it with last year’s Sales.
 2) Sales By Month and Comparing it with last year’s Sales.
 3) Sales of top 5 Cities
@@ -67,25 +68,25 @@ Create Dax measures
 
 We will use Data Analysis Expressions (DAX) to create calculated columns, measures, and calculated tables to perform complex calculations and aggregations. DAX is a powerful formula language that allows you to manipulate data within Power BI.
 
-//Measures Total Sales
+#### Measures Total Sales
 Sales = SUM(Sales_Data[Sales])
 
-//Measures Previous Year Toal Sales
+#### Measures Previous Year Toal Sales
 Sales PY = CALCULATE([Sales], SAMEPERIODLASTYEAR(DateTable[Date]))
 
-//Diffrence Between Current Year Sales & Previous Year Sales
+#### Diffrence Between Current Year Sales & Previous Year Sales
 Sales vs PY = [Sales] - [Sales PY]
 
 
-//Percentage Increase or Decrease in sales year on year (YOY%)
+#### Percentage Increase or Decrease in sales year on year (YOY%)
 Sales vs py % = DIVIDE([Sales vs PY],[Sales],0)
->> Products Sold = SUM(Sales_Data[Order Quantity])
->> Profit = SUM(Sales_Data[Profit]) 
->> Profit LY = CALCULATE([Profit], SAMEPERIODLASTYEAR(DateTable[Date]))
->> Profit Vs LY = [Profit]- [Profit LY]
->> Profit vs LY % = [Profit Vs LY]/[Profit]
->> Profit Margin = DIVIDE([Profit],[Sales],0)
->> Total Cost = SUM(Sales_Data[Total Cost]) 
+ Products Sold = SUM(Sales_Data[Order Quantity])
+ Profit = SUM(Sales_Data[Profit]) 
+ Profit LY = CALCULATE([Profit], SAMEPERIODLASTYEAR(DateTable[Date]))
+ Profit Vs LY = [Profit]- [Profit LY]
+ Profit vs LY % = [Profit Vs LY]/[Profit]
+ Profit Margin = DIVIDE([Profit],[Sales],0)
+ Total Cost = SUM(Sales_Data[Total Cost]) 
 
 ## Conclusion of Power BI Sales Dashboard Project
 Conclusion for the year 2019:
